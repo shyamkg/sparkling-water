@@ -8,10 +8,6 @@ ext {
 
 description = "PySparkling - Sparkling-Water Python Package"
 
-dependencies {
-  compile project(path: ':sparkling-water-assembly', configuration: 'shadow')
-}
-
 //
 // Create a file with version for Python dist task
 //
@@ -95,7 +91,7 @@ def copyH2OFromH2OWheel(String H2O_PYTHON_WHEEL){
 //
 // Make PySparkling distribution egg package
 //
-task distPython(type: Exec, dependsOn: checkPythonEnv) {
+task distPython(type: Exec, dependsOn: [checkPythonEnv, ":sparkling-water-assembly:shadowJar"]) {
     doFirst {
         preparePythonEnv(environment)
         def H2O_HOME = System.getenv("H2O_HOME")
@@ -111,8 +107,8 @@ task distPython(type: Exec, dependsOn: checkPythonEnv) {
         }
 
         copy {
-            from "${configurations.compile.join(',')}"
-            into  file("${project.buildDir}/sparkling_water")
+            from file("${rootDir}/assembly/build/libs/sparkling-water-assembly_${scalaBaseVersion}-${version}-all.jar")
+            into file("${project.buildDir}/sparkling_water")
             rename ".*", "sparkling_water_assembly.jar"
         }
         // Save comment into module file
@@ -132,7 +128,7 @@ artifacts {
 //
 // Test python against Spark cloud
 //
-task testPython(type: Exec, dependsOn: [configurations.compile, distPython] ) {
+task testPython(type: Exec, dependsOn: distPython) {
     doFirst {
         preparePythonEnv(environment)
     }
@@ -146,8 +142,8 @@ task testPython(type: Exec, dependsOn: [configurations.compile, distPython] ) {
 //
 // Run python integration tests
 //
-task integTestPython(type: Exec, dependsOn: [configurations.compile, distPython] ) {
-    doFirst{
+task integTestPython(type: Exec, dependsOn: distPython) {
+    doFirst {
         preparePythonEnv(environment)
     }
     def testEnv = detectEnvironment()
