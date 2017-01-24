@@ -18,14 +18,13 @@
 package org.apache.spark.h2o.converters
 
 
-import org.apache.spark.Logging
 import org.apache.spark.h2o._
 
 import scala.language.{implicitConversions, postfixOps}
 import scala.reflect.runtime.universe._
 
 
-trait DatasetConverter extends Logging with ConverterUtils{
+trait DatasetConverter extends H2OLogging with ConverterUtils{
 
   /** Transform Spark's Dataset into H2O Frame */
   def toH2OFrame[T <: Product](hc: H2OContext, ds: Dataset[T], frameKeyName: Option[String])(implicit ttag:TypeTag[T]) = {

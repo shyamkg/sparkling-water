@@ -20,7 +20,7 @@ package org.apache.spark.h2o.converters
 import org.apache.spark.h2o._
 import org.apache.spark.h2o.utils.NodeDesc
 import org.apache.spark.mllib.regression.LabeledPoint
-import org.apache.spark.{Logging, TaskContext}
+import org.apache.spark.TaskContext
 import water.Key
 import water.fvec.{H2OFrame, Vec}
 
@@ -28,7 +28,7 @@ import scala.collection.immutable
 import scala.language.implicitConversions
 import language.postfixOps
 
-private[converters] object LabeledPointConverter extends Logging with ConverterUtils{
+private[converters] object LabeledPointConverter extends H2OLogging with ConverterUtils{
 
   /** Transform RDD[LabeledPoint] to appropriate H2OFrame */
   def toH2OFrame(hc: H2OContext, rdd: RDD[LabeledPoint], frameKeyName: Option[String]): H2OFrame = {

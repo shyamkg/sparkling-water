@@ -18,7 +18,7 @@
 package org.apache.spark.h2o.converters
 
 import org.apache.spark._
-import org.apache.spark.h2o.H2OContext
+import org.apache.spark.h2o.{H2OContext, H2OLogging}
 import org.apache.spark.h2o.utils.ReflectionUtils._
 import org.apache.spark.h2o.utils.{H2OSchemaUtils, NodeDesc}
 import org.apache.spark.sql.types._
@@ -27,7 +27,7 @@ import water.fvec.{Frame, H2OFrame}
 
 import scala.collection.immutable
 
-trait SparkDataFrameConverter extends Logging with ConverterUtils {
+trait SparkDataFrameConverter extends H2OLogging with ConverterUtils {
 
   /**
     * Create a Spark DataFrame from given H2O frame.

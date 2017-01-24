@@ -27,9 +27,9 @@ import java.net.URI
 import org.apache.spark.repl.SparkILoop
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.util.Utils
-import org.apache.spark.{Logging, SparkContext}
+import org.apache.spark.SparkContext
+import org.apache.spark.h2o.H2OLogging
 
-import scala.Predef.{println => _, _}
 import scala.annotation.tailrec
 import scala.language.{existentials, implicitConversions, postfixOps}
 import scala.reflect._
@@ -43,7 +43,7 @@ import scala.tools.nsc.util._
   * @param sparkContext spark context
   * @param sessionId session ID for interpreter
   */
-class H2OInterpreter(val sparkContext: SparkContext, var sessionId: Int) extends Logging {
+class H2OInterpreter(val sparkContext: SparkContext, var sessionId: Int) extends H2OLogging {
 
   private val ContinueString = "     | "
   private val consoleStream = new IntpConsoleStream()

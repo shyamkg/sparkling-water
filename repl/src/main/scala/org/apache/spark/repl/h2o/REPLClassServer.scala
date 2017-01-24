@@ -22,6 +22,7 @@
 
 package org.apache.spark.repl.h2o
 
+import org.apache.spark.h2o.H2OLogging
 import org.apache.spark.util.Utils
 import org.apache.spark.{HttpServer, Logging, SecurityManager, SparkConf}
 
@@ -29,7 +30,7 @@ import org.apache.spark.{HttpServer, Logging, SecurityManager, SparkConf}
 /**
   * HTTP Server storing classes defined in REPL
   */
-private[repl] object REPLClassServer extends Logging {
+private[repl] object REPLClassServer extends H2OLogging {
 
   lazy val getClassOutputDirectory = outputDir
   /** Local directory to save .class files too */

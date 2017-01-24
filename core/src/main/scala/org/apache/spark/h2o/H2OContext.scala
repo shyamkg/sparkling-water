@@ -58,7 +58,7 @@ import scala.util.control.NoStackTrace
   * @param sparkContext Spark Context
   * @param conf H2O configuration
   */
-class H2OContext private (@transient val sparkContext: SparkContext, @transient conf: H2OConf) extends Logging
+class H2OContext private (@transient val sparkContext: SparkContext, @transient conf: H2OConf) extends H2OLogging
   with Serializable with SparkDataFrameConverter with SupportedRDDConverter with DatasetConverter
   with H2OContextUtils { self =>
 
@@ -226,7 +226,7 @@ class H2OContext private (@transient val sparkContext: SparkContext, @transient 
   // scalastyle:on
 }
 
-object H2OContext extends Logging {
+object H2OContext extends H2OLogging {
 
   private[H2OContext] def setInstantiatedContext(h2oContext: H2OContext): Unit = {
     synchronized {

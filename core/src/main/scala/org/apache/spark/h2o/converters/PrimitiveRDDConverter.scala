@@ -18,7 +18,7 @@
 package org.apache.spark.h2o.converters
 
 
-import org.apache.spark.{Logging, TaskContext}
+import org.apache.spark.TaskContext
 import org.apache.spark.h2o._
 import org.apache.spark.h2o.utils.{NodeDesc, ReflectionUtils}
 import water.Key
@@ -28,7 +28,7 @@ import scala.collection.immutable
 import scala.language.implicitConversions
 import scala.reflect.runtime.universe._
 
-private[converters] object PrimitiveRDDConverter extends Logging with ConverterUtils{
+private[converters] object PrimitiveRDDConverter extends H2OLogging with ConverterUtils{
 
   def toH2OFrame[T: TypeTag](hc: H2OContext, rdd: RDD[T], frameKeyName: Option[String]): H2OFrame = {
     import ReflectionUtils._
